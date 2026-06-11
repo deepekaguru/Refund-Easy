@@ -12,8 +12,9 @@ def load_customers():
     try:
         res = requests.get(f"{API_URL}/customers")
         return res.json()
-    except:
-        return []
+    except Exception as e:
+    st.error(str(e))
+    return []
 
 st.markdown("""
 <style>
