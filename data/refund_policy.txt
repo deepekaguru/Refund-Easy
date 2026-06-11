@@ -1,0 +1,31 @@
+TECHMART ENTERPRISE OPERATIONAL POLICY: REFUNDS, RETURNS, AND ESCALATIONS
+Document ID: TM-POL-2026-REV3
+Effective Date: January 1, 2026
+Last Updated: June 10, 2026
+
+1. GENERAL RETURNS & REFUND WINDOW
+- Standard Items: Customers are eligible for a return or refund on unused, unaltered physical items in their original packaging within 30 calendar days from the date of delivery or purchase.
+- Proof of Purchase: A verified Order ID and customer email address are strictly mandatory to process any transaction. No exceptions.
+
+2. FEES AND EXCEPTIONS
+- Change of Mind / Customer Preference: The customer is responsible for return shipping costs.
+- Defective, Damaged, or Incorrect Items: Must be reported within 7 calendar days of delivery. For damaged items, return shipping fees are completely waived. A prepaid shipping label will be provided.
+
+3. DIGITAL GOODS & FINAL SALE RESTRICTIONS
+- Digital Products: Software licenses, digital download keys, in-game currency, downloadable content (DLC), and digital gift cards are immediately consumed upon delivery. They are strictly non-returnable and do not qualify for refunds under any circumstances.
+- Final Sale: Clearance items, promotional bundles, or items marked "Final Sale" cannot be returned, refunded, or exchanged.
+
+4. HIGH-VALUE ESCALATION THRESHOLD ($500)
+- Automated Refund Limit: The automated system and Tier 1 agents are strictly forbidden from approving or denying refunds where the total value of the eligible items meets or exceeds $500.00 USD.
+- Mandatory Action: Any refund request totaling $500.00 or more must be immediately ESCALATED to the Senior Management Team. The agent must log a high-priority ticket, and the customer must be informed of a 24-48 hour specialist review window.
+
+5. OUT-OF-SCOPE ENQUIRIES
+- General Support: Requests regarding account modifications, changing shipping addresses for pending orders, warranty extensions, or generic tech support are outside the scope of the Refund Agent. 
+- Handling: The agent must politely inform the user that this requires human routing and instruct them to create an official customer support ticket to proceed with the general customer agent team.
+- Customers with these requests should raise a support ticket or email us directly at support@techmart.com and the general customer support team will assist them.
+
+6. ZERO-TOLERANCE CONDUCT & SAFETY POLICY
+- Prohibited Behavior: TechMart maintains a strict zero-tolerance policy for abusive behavior. This includes cursing, profanity, racial slurs, discriminatory comments, sexual remarks, personal harassment, or threatening language.
+- Enforcement: Any violation immediately voids standard customer service templates. The session must be instantly terminated, the state set to DENIED, and the account flagged for security review.
+- Any further requests after session termination must be submitted via 
+  email to support@techmart.com for review.

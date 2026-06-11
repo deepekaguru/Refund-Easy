@@ -1,0 +1,409 @@
+[
+  {
+    "customer_id": "C001",
+    "name": "James Carter",
+    "email": "james.carter@email.com",
+    "orders": [
+      {
+        "order_id": "ORD1001",
+        "item_name": "Wireless Headphones",
+        "price": 89.99,
+        "purchase_date": "2026-05-20",
+        "status": "delivered",
+        "is_final_sale": false,
+        "is_digital": false,
+        "is_damaged": false
+      }
+    ]
+  },
+  {
+    "customer_id": "C002",
+    "name": "Sophia Patel",
+    "email": "sophia.patel@email.com",
+    "orders": [
+      {
+        "order_id": "ORD1002",
+        "item_name": "Running Shoes",
+        "price": 120.00,
+        "purchase_date": "2026-04-01",
+        "status": "delivered",
+        "is_final_sale": false,
+        "is_digital": false,
+        "is_damaged": false
+      }
+    ]
+  },
+  {
+    "customer_id": "C003",
+    "name": "Liam Nguyen",
+    "email": "liam.nguyen@email.com",
+    "orders": [
+      {
+        "order_id": "ORD1003",
+        "item_name": "Designer Handbag",
+        "price": 349.99,
+        "purchase_date": "2026-05-25",
+        "status": "delivered",
+        "is_final_sale": true,
+        "is_digital": false,
+        "is_damaged": false
+      }
+    ]
+  },
+  {
+    "customer_id": "C004",
+    "name": "Emma Wilson",
+    "email": "emma.wilson@email.com",
+    "orders": [
+      {
+        "order_id": "ORD1004",
+        "item_name": "4K Smart TV",
+        "price": 799.99,
+        "purchase_date": "2026-05-28",
+        "status": "delivered",
+        "is_final_sale": false,
+        "is_digital": false,
+        "is_damaged": false
+      }
+    ]
+  },
+  {
+    "customer_id": "C005",
+    "name": "Noah Kim",
+    "email": "noah.kim@email.com",
+    "orders": [
+      {
+        "order_id": "ORD1005",
+        "item_name": "Adobe Photoshop License",
+        "price": 54.99,
+        "purchase_date": "2026-06-01",
+        "status": "delivered",
+        "is_final_sale": false,
+        "is_digital": true,
+        "is_damaged": false
+      }
+    ]
+  },
+  {
+    "customer_id": "C006",
+    "name": "Olivia Brown",
+    "email": "olivia.brown@email.com",
+    "orders": [
+      {
+        "order_id": "ORD1006",
+        "item_name": "Coffee Maker",
+        "price": 75.00,
+        "purchase_date": "2026-05-10",
+        "status": "delivered",
+        "is_final_sale": false,
+        "is_digital": false,
+        "is_damaged": true
+      }
+    ]
+  },
+  {
+    "customer_id": "C007",
+    "name": "Ethan Moore",
+    "email": "ethan.moore@email.com",
+    "orders": [
+      {
+        "order_id": "ORD1007",
+        "item_name": "Yoga Mat",
+        "price": 35.00,
+        "purchase_date": "2026-03-01",
+        "status": "delivered",
+        "is_final_sale": false,
+        "is_digital": false,
+        "is_damaged": false
+      }
+    ]
+  },
+  {
+    "customer_id": "C008",
+    "name": "Ava Johnson",
+    "email": "ava.johnson@email.com",
+    "orders": [
+      {
+        "order_id": "ORD1008",
+        "item_name": "Bluetooth Speaker",
+        "price": 59.99,
+        "purchase_date": "2026-06-01",
+        "status": "delivered",
+        "is_final_sale": false,
+        "is_digital": false,
+        "is_damaged": false
+      }
+    ]
+  },
+  {
+    "customer_id": "C009",
+    "name": "Mason Davis",
+    "email": "mason.davis@email.com",
+    "orders": [
+      {
+        "order_id": "ORD1009",
+        "item_name": "Gaming Chair",
+        "price": 550.00,
+        "purchase_date": "2026-06-01",
+        "status": "delivered",
+        "is_final_sale": false,
+        "is_digital": false,
+        "is_damaged": false
+      }
+    ]
+  },
+  {
+    "customer_id": "C010",
+    "name": "Isabella Martinez",
+    "email": "isabella.martinez@email.com",
+    "orders": [
+      {
+        "order_id": "ORD1010",
+        "item_name": "Winter Jacket",
+        "price": 199.99,
+        "purchase_date": "2026-05-30",
+        "status": "delivered",
+        "is_final_sale": true,
+        "is_digital": false,
+        "is_damaged": false
+      }
+    ]
+  },
+  {
+    "customer_id": "C011",
+    "name": "Lucas Anderson",
+    "email": "lucas.anderson@email.com",
+    "orders": [
+      {
+        "order_id": "ORD1011",
+        "item_name": "Mechanical Keyboard",
+        "price": 149.99,
+        "purchase_date": "2026-06-05",
+        "status": "delivered",
+        "is_final_sale": false,
+        "is_digital": false,
+        "is_damaged": false
+      }
+    ]
+  },
+  {
+    "customer_id": "C012",
+    "name": "Mia Thompson",
+    "email": "mia.thompson@email.com",
+    "orders": [
+      {
+        "order_id": "ORD1012",
+        "item_name": "Online Course Python Bootcamp",
+        "price": 29.99,
+        "purchase_date": "2026-06-06",
+        "status": "delivered",
+        "is_final_sale": false,
+        "is_digital": true,
+        "is_damaged": false
+      }
+    ]
+  },
+  {
+    "customer_id": "C013",
+    "name": "Elijah White",
+    "email": "elijah.white@email.com",
+    "orders": [
+      {
+        "order_id": "ORD1013",
+        "item_name": "Sneakers",
+        "price": 95.00,
+        "purchase_date": "2025-06-07",
+        "status": "delivered",
+        "is_final_sale": false,
+        "is_digital": false,
+        "is_damaged": false
+      }
+    ]
+  },
+  {
+    "customer_id": "C014",
+    "name": "Charlotte Harris",
+    "email": "charlotte.harris@email.com",
+    "orders": [
+      {
+        "order_id": "ORD1014",
+        "item_name": "Laptop Stand",
+        "price": 45.00,
+        "purchase_date": "2025-04-10",
+        "status": "delivered",
+        "is_final_sale": false,
+        "is_digital": false,
+        "is_damaged": false
+      }
+    ]
+  },
+  {
+    "customer_id": "C015",
+    "name": "Amelia Clark",
+    "email": "amelia.clark@email.com",
+    "orders": [
+      {
+        "order_id": "ORD1015",
+        "item_name": "Smartwatch",
+        "price": 299.99,
+        "purchase_date": "2025-06-01",
+        "status": "delivered",
+        "is_final_sale": false,
+        "is_digital": false,
+        "is_damaged": false
+      }
+    ]
+  },
+  {
+    "customer_id": "C016",
+    "name": "Ryan Thompson",
+    "email": "ryan.thompson@email.com",
+    "orders": [
+      {
+        "order_id": "ORD1016",
+        "item_name": "Noise Cancelling Headphones",
+        "price": 199.99,
+        "purchase_date": "2026-06-05",
+        "status": "delivered",
+        "is_final_sale": false,
+        "is_digital": false,
+        "is_damaged": false
+      },
+      {
+        "order_id": "ORD1017",
+        "item_name": "Phone Case",
+        "price": 19.99,
+        "purchase_date": "2026-06-07",
+        "status": "delivered",
+        "is_final_sale": true,
+        "is_digital": false,
+        "is_damaged": false
+      }
+    ]
+  },
+  {
+    "customer_id": "C017",
+    "name": "Priya Sharma",
+    "email": "priya.sharma@email.com",
+    "orders": [
+      {
+        "order_id": "ORD1018",
+        "item_name": "Kindle E-Reader",
+        "price": 129.99,
+        "purchase_date": "2026-06-08",
+        "status": "delivered",
+        "is_final_sale": false,
+        "is_digital": false,
+        "is_damaged": false
+      },
+      {
+        "order_id": "ORD1019",
+        "item_name": "Spotify Premium Annual",
+        "price": 99.99,
+        "purchase_date": "2026-06-09",
+        "status": "delivered",
+        "is_final_sale": false,
+        "is_digital": true,
+        "is_damaged": false
+      }
+    ]
+  },
+  {
+    "customer_id": "C018",
+    "name": "Daniel Park",
+    "email": "daniel.park@email.com",
+    "orders": [
+      {
+        "order_id": "ORD1020",
+        "item_name": "Standing Desk",
+        "price": 649.99,
+        "purchase_date": "2026-06-04",
+        "status": "delivered",
+        "is_final_sale": false,
+        "is_digital": false,
+        "is_damaged": false
+      }
+    ]
+  },
+  {
+    "customer_id": "C019",
+    "name": "Sofia Reyes",
+    "email": "sofia.reyes@email.com",
+    "orders": [
+      {
+        "order_id": "ORD1021",
+        "item_name": "Running Watch",
+        "price": 249.99,
+        "purchase_date": "2026-06-06",
+        "status": "delivered",
+        "is_final_sale": false,
+        "is_digital": false,
+        "is_damaged": true
+      },
+      {
+        "order_id": "ORD1022",
+        "item_name": "Resistance Bands Set",
+        "price": 29.99,
+        "purchase_date": "2026-06-07",
+        "status": "delivered",
+        "is_final_sale": false,
+        "is_digital": false,
+        "is_damaged": false
+      }
+    ]
+  },
+  {
+    "customer_id": "C020",
+    "name": "Marcus Johnson",
+    "email": "marcus.johnson@email.com",
+    "orders": [
+      {
+        "order_id": "ORD1023",
+        "item_name": "Ergonomic Chair",
+        "price": 399.99,
+        "purchase_date": "2026-06-03",
+        "status": "delivered",
+        "is_final_sale": false,
+        "is_digital": false,
+        "is_damaged": false
+      },
+      {
+        "order_id": "ORD1024",
+        "item_name": "USB-C Hub",
+        "price": 49.99,
+        "purchase_date": "2026-06-08",
+        "status": "delivered",
+        "is_final_sale": false,
+        "is_digital": false,
+        "is_damaged": false
+      }
+    ]
+  },
+  {
+    "customer_id": "C021",
+    "name": "Deepeka Gurunathan",
+    "email":"deepekagurunathan@gmail.com",
+    "orders": [
+      {
+        "order_id": "ORD2001",
+        "item_name": "MacBook Pro Stand",
+        "price": 89.99,
+        "purchase_date": "2026-06-07",
+        "status": "delivered",
+        "is_final_sale": false,
+        "is_digital": false,
+        "is_damaged": false
+      },
+      {
+        "order_id": "ORD2002",
+        "item_name": "Wireless Ergonomic Mouse",
+        "price": 649.99,
+        "purchase_date": "2026-06-05",
+        "status": "delivered",
+        "is_final_sale": false,
+        "is_digital": false,
+        "is_damaged": false
+      }
+    ]
+  }
+]
