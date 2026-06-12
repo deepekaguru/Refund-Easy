@@ -375,7 +375,7 @@ with left:
                     )
 
   col1, col2 = st.columns([1, 1])
-with col1:
+  with col1:
     if st.button("🗑️ Clear Session"):
         st.session_state.current_exchange = None
         st.session_state.chat_history = []
