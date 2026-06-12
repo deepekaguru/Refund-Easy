@@ -149,17 +149,11 @@ def get_customers():
     with open(os.path.join(os.path.dirname(__file__), "../data/customers.json"), "r") as f:
         return json.load(f)
 
-@app.get("/logs")
-def get_logs():
-    return db.get_all_requests()
-
-@app.get("/tickets")
-def get_tickets():
-    return db.get_all_tickets()
 @app.delete("/clear-logs")
 def clear_logs():
     import sqlite3
-    conn = sqlite3.connect("refund_agent.db")
+    db_path = os.path.join(os.path.dirname(__file__), "../data/refund_agent.db")
+    conn = sqlite3.connect(db_path)
     conn.execute("DELETE FROM refund_requests")
     conn.execute("DELETE FROM support_tickets")
     conn.commit()
