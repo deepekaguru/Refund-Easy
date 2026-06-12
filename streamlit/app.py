@@ -374,7 +374,25 @@ with left:
                         unsafe_allow_html=True
                     )
 
+  col1, col2 = st.columns([1, 1])
+with col1:
     if st.button("🗑️ Clear Session"):
+        st.session_state.current_exchange = None
+        st.session_state.chat_history = []
+        st.session_state.conversation_history = []
+        st.session_state.trace_logs = []
+        st.session_state.show_chat = False
+        st.session_state.chat_action = None
+        st.session_state.active_customer_key = None
+        st.session_state.input_key += 1
+        st.session_state.session_terminated = False
+        st.session_state.stats = {"total": 0, "approved": 0, "denied": 0, "escalated": 0}
+        st.rerun()
+with col2:
+    if st.button("🗄️ Clear All Logs"):
+        res = requests.delete(f"{API_URL}/clear-logs")
+        if res.status_code == 200:
+            st.success("All logs cleared!")
         st.session_state.current_exchange = None
         st.session_state.chat_history = []
         st.session_state.conversation_history = []
