@@ -77,7 +77,7 @@ def validate_refund_policy(order_details: dict) -> dict:
     # If outside 7 days: DENIED
     if is_damaged:
         if days_since_purchase <= 7:
-            refund_amount = price  # no restocking fee for defective items
+            refund_amount = price  
             if price >= 500:
                 return {
                     "eligible": True,
@@ -87,8 +87,7 @@ def validate_refund_policy(order_details: dict) -> dict:
             return {
                 "eligible": True,
                 "decision": "APPROVED",
-                "reason": f"{item_name} was reported as damaged within 7 days. Restocking fee and return shipping are fully waived. A prepaid shipping label will be provided. Refund of ${refund_amount} will be processed within 5-7 business days.",
-                "restocking_fee": 0.0,
+                "reason": f"{item_name} was reported as damaged within 7 days. A free prepaid shipping label will be provided. Refund of ${refund_amount} will be processed within 5-7 business days.",
                 "refund_amount": refund_amount,
                 "prepaid_label": True
             }
@@ -115,7 +114,6 @@ def validate_refund_policy(order_details: dict) -> dict:
             "reason": f"Refund of ${price} for {item_name} meets or exceeds the $500 threshold and requires Senior Management review before processing."
         }
 
-    # Rule 6: Standard return — apply 10% restocking fee
 
     # Rule 6: Standard return — full refund
     return {
