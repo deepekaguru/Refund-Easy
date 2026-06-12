@@ -373,6 +373,43 @@ with left:
                         f'<div class="chat-agent-bubble"><strong>Alex</strong><br><br>{entry["response"]}</div>',
                         unsafe_allow_html=True
                     )
+# View Refund Logs
+with st.expander("📋 View Refund Logs"):
+    try:
+        res = requests.get(f"{API_URL}/logs")
+        if res.status_code == 200:
+            logs = res.json()
+            if logs:
+                import pandas as pd
+                df = pd.DataFrame(logs)[["created_at", "customer_id", "order_id", "item_name", "decision", "reason"]]
+                df.columns = ["Time", "Customer", "Order", "Item", "Decision", "Reason"]
+                st.dataframe(df, use_container_width=True)
+            else:
+                st.info("No logs yet.")
+        else:
+            st.warning("Could not fetch logs.")
+    except Exception as e:
+        st.error(f"Error: {e}")
+
+# Buttons row
+col1, col2 = st.columns([1, 1])
+with col1:
+    if st.button("🗑️ Clear Session"):
+        st.session_state.current_exchange = None
+        st.session_state.chat_history = []
+        st.session_state.conversation_history = []
+        st.session_state.trace_logs = []
+        st.session_state.show_chat = False
+        st.session_state.chat_action = None
+        st.session_state.active_customer_key = None
+        st.session_state.input_key += 1
+        st.session_state.session_terminated = False
+        st.session_state.stats = {"total": 0, "approved": 0, "denied": 0, "escalated": 0}
+        st.rerun()
+with col2:
+    if st.button("🗄️ Clear All Logs"):
+        res = requests.delete(f"{API_URL}/clear-logs")
+        st.write(f"Status: {res.status_code} — {res.text}")
 col1, col2 = st.columns([1, 1])
 with col1:
     if st.button("🗑️ Clear Session"):
