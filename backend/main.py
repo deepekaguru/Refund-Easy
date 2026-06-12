@@ -70,7 +70,6 @@ def get_order_details(customer_id: str, order_id: str) -> dict:
                         "amount": order["price"]
                     }
     return {"customer_name": "", "customer_email": "", "item_name": "", "amount": 0}
-    return {"customer_name": "", "customer_email": "", "item_name": "", "amount": 0}
 
 # ---------- Endpoints ----------
 @app.get("/health")
