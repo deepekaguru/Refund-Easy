@@ -149,6 +149,14 @@ def get_customers():
     with open(os.path.join(os.path.dirname(__file__), "../data/customers.json"), "r") as f:
         return json.load(f)
 
+@app.get("/logs")
+def get_logs():
+    return db.get_all_requests()
+
+@app.get("/tickets")
+def get_tickets():
+    return db.get_all_tickets()
+
 @app.delete("/clear-logs")
 def clear_logs():
     import sqlite3
