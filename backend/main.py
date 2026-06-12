@@ -56,12 +56,10 @@ def generate_ticket_id(customer_id: str) -> str:
     date_str = datetime.now().strftime("%Y%m%d%H%M%S")
     return f"TKT-{date_str}-{customer_id}"
 
+from backend.tools import CUSTOMERS
+
 def get_order_details(customer_id: str, order_id: str) -> dict:
-    import json
-    path = os.path.join(os.path.dirname(__file__), "../data/customers.json")
-    with open(path, "r") as f:
-        customers = json.load(f)
-    for customer in customers:
+    for customer in CUSTOMERS:
         if customer["customer_id"] == customer_id:
             for order in customer["orders"]:
                 if order["order_id"] == order_id:
@@ -71,6 +69,7 @@ def get_order_details(customer_id: str, order_id: str) -> dict:
                         "item_name": order["item_name"],
                         "amount": order["price"]
                     }
+    return {"customer_name": "", "customer_email": "", "item_name": "", "amount": 0}
     return {"customer_name": "", "customer_email": "", "item_name": "", "amount": 0}
 
 # ---------- Endpoints ----------
