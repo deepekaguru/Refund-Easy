@@ -69,7 +69,7 @@ def save_refund_request(
         ticket_id, customer_id, order_id, customer_name,
         item_name, amount, user_message, agent_response,
         decision, reason, total_tokens, total_latency,
-        json.dumps(trace), datetime.now().strftime("%m-%d-%Y %H:%M:%S")
+        json.dumps(trace), datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     ))
     conn.commit()
     conn.close()
@@ -106,7 +106,7 @@ def save_support_ticket(ticket_id, customer_id, order_id, customer_name, item_na
     """, (
         ticket_id, customer_id, order_id, customer_name,
         item_name, amount, reason,
-        datetime.now().strftime("%m-%d-%Y %H:%M:%S")
+        datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     ))
     conn.commit()
     conn.close()
