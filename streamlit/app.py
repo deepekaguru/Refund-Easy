@@ -375,7 +375,7 @@ with left:
                         unsafe_allow_html=True
                     )
 # View Refund Logs
-with st.expander("📋 View Refund Logs"):
+with st.expander("View Refund Logs"):
     try:
         res = requests.get(f"{API_URL}/logs")
         if res.status_code == 200:
