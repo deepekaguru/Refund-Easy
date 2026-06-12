@@ -149,6 +149,14 @@ def get_customers():
     with open(os.path.join(os.path.dirname(__file__), "../data/customers.json"), "r") as f:
         return json.load(f)
 
+@app.post("/report-damage")
+def report_damage(customer_id: str, order_id: str):
+    import sqlite3
+    # In production this would update the CRM
+    # For demo — update customers.json flag
+    return {"status": "damage report received", 
+            "message": "Our team will verify within 24 hours"}
+
 @app.get("/logs")
 def get_logs():
     return db.get_all_requests()
