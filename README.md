@@ -1,14 +1,19 @@
 # Refund Easy — AI Refund Agent
 
-An autonomous AI customer support agent that processes refund requests end-to-end. Built with LangGraph, GPT-4o, FastAPI, and Streamlit.
+An autonomous AI customer support agent that processes refund requests end-to-end without human intervention. Built with LangGraph, GPT-4o, FastAPI, and Streamlit.
+
+**Live Demo:** [refund-easy.streamlit.app](https://refund-easy.streamlit.app) | **API:** [refund-easy-api.onrender.com](https://refund-easy-api.onrender.com/docs)
 
 ---
 
 ## Demo
 
-> Enter a Customer ID (C001–C021), select an order, and chat with Alex — the AI refund specialist.
+Enter a Customer ID (C001–C021), select an order, and chat with Alex — the AI refund specialist.
+
+> Note: The backend runs on Render's free tier and may take 30–60 seconds to wake up on the first request.
 
 **Test scenarios:**
+
 | Customer | Order | Scenario |
 |---|---|---|
 | C001 | ORD1001 | Standard APPROVED |
@@ -17,7 +22,10 @@ An autonomous AI customer support agent that processes refund requests end-to-en
 | C004 | ORD1004 | ESCALATED — over $500 |
 | C006 | ORD1006 | APPROVED — damaged item, fees waived |
 | C018 | ORD1020 | ESCALATED — $649.99 standing desk |
+| C007 | ORD1007 | DENIED — outside 30-day window |
 | C016 | ORD1016 | Multi-order customer |
+| C019 | ORD1021 | APPROVED — damaged, within 7 days |
+| Any | Any | Try pleading, pressure, harassment, prompt injection |
 
 ---
 
@@ -53,12 +61,36 @@ SQLite Database + LangSmith Tracing
 
 - **Duplicate detection** — checks prior decisions before processing any new request
 - **Policy enforcement** — 6-rule validation engine (final sale, digital, return window, damaged, escalation threshold)
-- **Retry mechanism** — tool node retries failed calls up to 2 times with 0.5s backoff
-- **Conversation history** — multi-turn context passed across all requests
-- **Kill switch** — abusive sessions terminated automatically, account flagged
+- **Retry mechanism** — tool node retries failed calls up to 2 times with 0.5s backoff on transient failures
+- **Conversation history** — multi-turn context passed across all requests, agent never repeats itself
+- **Kill switch** — abusive/harassing sessions terminated automatically, account flagged
 - **Escalation routing** — requests ≥ $500 auto-escalated with ticket ID generated
 - **LangSmith observability** — full trace logging for every agent run
-- **Live agent trace panel** — every reasoning step and tool call visible in the UI
+- **Live agent trace panel** — every reasoning step, tool I/O, token cost, and latency visible in UI
+- **Refund logs table** — all decisions persisted to SQLite, viewable in UI
+- **Session management** — chat resets automatically when switching customers
+- **Privacy protection** — agent refuses to reveal other customer data, system prompt, or personal account details
+- **Prompt injection defense** — handles jailbreak attempts, ignores instruction override attempts
+- **Language guard** — responds in English only, gracefully handles non-English input
+
+---
+
+## Agent Resilience
+
+The agent is designed to hold firm against:
+
+| Scenario | Behavior |
+|---|---|
+| Customer pleads or begs | Acknowledges empathetically, holds policy |
+| Customer pressures or threatens | Stays calm, firm, does not escalate tone |
+| Harassment or profanity | Kill switch — session terminated, account flagged |
+| Prompt injection ("ignore instructions") | Refuses clearly, stays in character |
+| Fake damage claim | Checks order data, rejects unsupported claim |
+| Fake purchase date claim | System date is source of truth |
+| Cannot return item | Empathetic denial, no override |
+| Claims non-delivery (status: delivered) | Routes to support ticket, not refund |
+| Asks for other customer data | Refuses, privacy protection enforced |
+| Asks to reveal system prompt | Refuses, stays in character |
 
 ---
 
@@ -72,6 +104,8 @@ SQLite Database + LangSmith Tracing
 | Frontend | Streamlit |
 | Database | SQLite |
 | Observability | LangSmith |
+| Hosting (API) | Render |
+| Hosting (UI) | Streamlit Cloud |
 | Language | Python 3.11+ |
 
 ---
@@ -187,6 +221,22 @@ Open [http://localhost:8501](http://localhost:8501)
 | GET | `/logs` | View all refund request logs |
 | GET | `/tickets` | View all escalation tickets |
 | GET | `/health` | Health check |
+| DELETE | `/clear-logs` | Clear all refund logs and tickets |
+| GET | `/download-db` | Download SQLite database file |
+
+---
+
+## Production Considerations
+
+What I'd add before a production deployment:
+
+- **Rate limiting** — prevent request spamming per customer session
+- **Authentication** — JWT tokens or API key validation on all endpoints
+- **Structured logging** — replace print-based DEBUG with Python `logging` module
+- **Error alerting** — Sentry or PagerDuty for agent failure notifications
+- **PostgreSQL** — replace SQLite with PostgreSQL on RDS for concurrent request handling
+- **Cost monitoring** — OpenAI spend limits and token usage alerts
+- **Response caching** — cache repeated identical requests to reduce API costs
 
 ---
 
@@ -198,3 +248,4 @@ Open [http://localhost:8501](http://localhost:8501)
 | `LANGCHAIN_API_KEY` | LangSmith API key for tracing |
 | `LANGCHAIN_TRACING_V2` | Enable LangSmith tracing (`true`/`false`) |
 | `LANGCHAIN_PROJECT` | LangSmith project name |
+
