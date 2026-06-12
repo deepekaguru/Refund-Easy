@@ -338,7 +338,7 @@ with left:
     if active_customer_id and active_order_id and not st.session_state.session_terminated:
         with st.container(border=True):
             st.markdown('<div class="section-label" style="font-size:16px;font-weight:700;">Chat Here with Our Virtual Assistant Alex</div>', unsafe_allow_html=True)
-            st.markdown('<div style="font-size:13px;color:#92784A;margin-bottom:8px;">How can I help you today? Ask me about your refund, return policy, or order status.</div>', unsafe_allow_html=True)
+            st.markdown('<div style="font-size:13px;color:#92784A;margin-bottom:8px;">How can I help you today? </div>', unsafe_allow_html=True)
             user_input = st.text_area(
                 " ",
                 placeholder="Type your message here...",
