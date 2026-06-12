@@ -373,9 +373,8 @@ with left:
                         f'<div class="chat-agent-bubble"><strong>Alex</strong><br><br>{entry["response"]}</div>',
                         unsafe_allow_html=True
                     )
-
-  col1, col2 = st.columns([1, 1])
-  with col1:
+col1, col2 = st.columns([1, 1])
+with col1:
     if st.button("🗑️ Clear Session"):
         st.session_state.current_exchange = None
         st.session_state.chat_history = []
