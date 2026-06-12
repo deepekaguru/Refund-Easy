@@ -5,15 +5,12 @@ import requests
 from datetime import datetime
 
 API_URL = st.secrets.get("BACKEND_API_URL", "http://localhost:8000")
+
 st.set_page_config(page_title="Refund Easy", layout="wide", initial_sidebar_state="collapsed")
 
 def load_customers():
     try:
         res = requests.get(f"{API_URL}/customers")
-
-        st.write("Status:", res.status_code)
-        st.write("Response:", res.text[:500])
-
         return res.json()
 
     except Exception as e:
