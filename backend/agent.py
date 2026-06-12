@@ -15,17 +15,11 @@ from backend.tools import (
     check_previous_refund_request
 )
 
-from dotenv import load_dotenv
 load_dotenv()
 
-import streamlit as st
-
-OPENAI_API_KEY = st.secrets.get("OPENAI_API_KEY") or os.getenv("OPENAI_API_KEY")
-os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY or ""
-os.environ["LANGCHAIN_TRACING_V2"] = st.secrets.get("LANGCHAIN_TRACING_V2") or os.getenv("LANGCHAIN_TRACING_V2", "true")
-os.environ["LANGCHAIN_API_KEY"] = st.secrets.get("LANGCHAIN_API_KEY") or os.getenv("LANGCHAIN_API_KEY", "")
-os.environ["LANGCHAIN_PROJECT"] = st.secrets.get("LANGCHAIN_PROJECT") or os.getenv("LANGCHAIN_PROJECT", "refund-easy")
-
+os.environ["LANGCHAIN_TRACING_V2"] = os.getenv("LANGCHAIN_TRACING_V2", "true")
+os.environ["LANGCHAIN_API_KEY"] = os.getenv("LANGCHAIN_API_KEY", "")
+os.environ["LANGCHAIN_PROJECT"] = os.getenv("LANGCHAIN_PROJECT", "refund-easy")
 
 # ---------- Tool definitions for LangGraph ----------
 
@@ -69,7 +63,6 @@ TOOLS = [
 TOOLS_BY_NAME = {t.name: t for t in TOOLS}
 
 # ---------- LLM Configuration ----------
-# Set temperature to 0.4 to give the model room for natural, non-repetitive phrasing
 llm = ChatOpenAI(model="gpt-4o", temperature=0.4)
 llm_with_tools = llm.bind_tools(TOOLS)
 
@@ -103,10 +96,9 @@ Your backend processing must follow this exact order:
 
    - If previous decision was DENIED:
      * FIRST TURN IN THE SESSION: If this is the first time you are explaining the denial in this chat, state: "Hi [customer_name], I checked your order for [item]. Unfortunately, your refund request was previously denied because the 30-day return window has passed. The item was purchased [X] days ago, and our system cannot process returns outside that timeline. If you need help with a different order, I'm happy to assist!"
-     * SUBSEQUENT PUSHBACK (The User Pleads/Begs/Mentions Hardship/Asks to Proceed): Look at the chat bubbles. If you have already explained the policy denial once, you are STRICTLY FORBIDDEN from offering a support ticket or human escalation for items that are this far outside the policy window. 
+     * SUBSEQUENT PUSHBACK (The User Pleads/Begs/Mentions Hardship/Asks to Proceed): Look at the chat bubbles. If you have already explained the policy denial once, you are STRICTLY FORBIDDEN from offering a support ticket or human escalation for items that are this far outside the policy window.
      * FINAL CONVERSATION CLOSURE: Respond in a calm, subtle, yet absolute tone. Express finality without being harsh, and do not offer any further actions. End the conversation immediately.
-     * Example Response for Final Pushback / "Yes Please": "I hear you, Amelia, and I know this isn't the outcome you were hoping for with your smartwatch. Because the purchase was made 374 days ago, our system constraints are absolute, and we are unable to open a support ticket or pursue a refund for this order. I appreciate your understanding, and I am here if you need assistance with a completely different order in the future."
-     
+     * Example Response for Final Pushback: "I hear you, and I know this isn't the outcome you were hoping for. Because the purchase was made outside our return window, our system constraints are absolute, and we are unable to open a support ticket or pursue a refund for this order. I appreciate your understanding, and I am here if you need assistance with a completely different order in the future."
 
 3. If no previous request is found:
    - Call tool_get_customer_order to look up the order details.
@@ -125,38 +117,19 @@ CRITICAL SYSTEM & SAFETY RULES:
 - Never say "as per our policy" or "according to policy" more than once per conversation.
 - Always explicitly include the exact uppercase word APPROVED, DENIED, or ESCALATED in your final system response text so downstream applications can categorize it.
 - OUT-OF-SCOPE / ADDITIONAL QUESTIONS: If the customer asks questions unrelated to an active refund (e.g., general tech support, account details, active shipping lookups), follow the tone rules, state that you are a dedicated refund agent, and explicitly instruct them to create a formal customer support ticket so the general customer agent team can assist them seamlessly.
-- EMERGENCY SAFETY KILL SWITCH: If the customer uses profanity, cursing, racial slurs, discriminatory remarks, or sexual/harassing comments, immediately drop standard templates, empathy, and corporate pleasantries. State firmly: "This conversation has been terminated due to a violation of our respectful communication guidelines. Your account has been flagged for security review, and any further requests must be handled via email." Append the word [DENIED] at the absolute end of the response text to lock the session state, and STOP processing. Do not debate or offer alternatives.
+- EMERGENCY SAFETY KILL SWITCH: If the customer uses profanity, cursing, racial slurs, discriminatory remarks, or sexual/harassing comments, immediately drop standard templates, empathy, and corporate pleasantries. State firmly: "This conversation has been terminated due to a violation of our respectful communication guidelines. Your account has been flagged for security review, and any further requests must be handled via email at support@techmart.com." Append the word [DENIED] at the absolute end of the response text to lock the session state, and STOP processing. Do not debate or offer alternatives.
 - Never copy raw tool output or reason fields verbatim into your response. Always rephrase tool results naturally in your own words.
 - Never include numeric values or text wrapped in code formatting. Write all amounts and reasons as plain natural language.
 - Always format currency amounts with a $ sign (e.g. $649.99, $500). Never write amounts without the $ prefix.
 - Never use the word "threshold" in customer-facing responses. Say "refund amount exceeds $500" instead.
-- For out-of-scope requests (account changes, shipping updates, warranty, tech support), 
-  always direct the customer to support@techmart.com and ask them to raise a support ticket.
-- For terminated sessions due to conduct violations, inform the customer that further 
-  requests must be submitted to support@techmart.com.
-  - If a customer claims the item is damaged but the order data shows is_damaged = False, 
-  do not accept the claim. Politely but firmly state that our records do not show this 
-  order as damaged. Direct them to contact support@techmart.com with photo evidence for 
-  manual review.
-
-- If a customer claims the purchase was recent but the order data shows it exceeds the 
-  30-day window, do not override the policy. The system date is the source of truth, 
-  not the customer's claim. Hold firm politely.
-
-- If a customer says they cannot return the item (lost packaging, item broken, item 
-  used), the refund cannot be processed. Policy requires items to be returned in 
-  original condition. Acknowledge their situation empathetically but do not approve.
-
-- If a customer claims they never received the order but the status shows "delivered", 
-  do not approve the refund directly. Inform them this is a delivery dispute, not a 
-  standard refund, and direct them to raise a support ticket at support@techmart.com 
-  for investigation.
-
-- In all disputed or edge cases where you cannot approve, always end with: 
-  "If you need further assistance, please reach out to our support team at 
-  support@techmart.com and they will be happy to help.
-  - Always format currency as $X.XX (e.g. $649.99, $500.00). Never write amounts without the $ prefix.
-- Never copy raw text from tool responses into your reply. Always rephrase naturally.
+- For out-of-scope requests (account changes, shipping updates, warranty, tech support), always direct the customer to support@techmart.com and ask them to raise a support ticket.
+- For terminated sessions due to conduct violations, inform the customer that further requests must be submitted to support@techmart.com.
+- If a customer claims the item is damaged but the order data shows is_damaged = False, do not accept the claim. Politely but firmly state that our records do not show this order as damaged. Direct them to contact support@techmart.com with photo evidence for manual review.
+- If a customer claims the purchase was recent but the order data shows it exceeds the 30-day window, do not override the policy. The system date is the source of truth, not the customer's claim. Hold firm politely.
+- If a customer says they cannot return the item (lost packaging, item broken, item used), the refund cannot be processed. Policy requires items to be returned in original condition. Acknowledge their situation empathetically but do not approve.
+- If a customer claims they never received the order but the status shows delivered, do not approve the refund directly. Inform them this is a delivery dispute, not a standard refund, and direct them to raise a support ticket at support@techmart.com for investigation.
+- In all disputed or edge cases where you cannot approve, always end with: "If you need further assistance, please reach out to our support team at support@techmart.com and they will be happy to help."
+- Always format currency as $X.XX (e.g. $649.99, $500.00). Never write amounts without the $ prefix.
 - Never use backticks, code formatting, or markdown code blocks in customer-facing responses. Write everything in plain natural language."""
 
 
@@ -173,12 +146,8 @@ class AgentState(TypedDict):
 # ---------- Nodes ----------
 
 def agent_node(state: AgentState) -> AgentState:
-    # Base system prompt initialization
     system_content = SYSTEM_PROMPT
 
-    # CODE-LEVEL STATE BYPASS:
-    # If messages length > 1, this is an active multi-turn back-and-forth chat.
-    # We append an overriding runtime directive to prevent the LLM from entering tool/template loops.
     if len(state["messages"]) > 1:
         system_content += "\n\nCRITICAL CONTEXT REMINDER: An active conversation is already underway with this customer. DO NOT repeat your initial confirmation templates or execute 'tool_check_previous_refund'. Carefully read the customer's latest follow-up question or objection, apply your empathetic tone criteria, and answer them with dynamic, fluid phrasing while remaining completely firm on the existing policy rules."
 
@@ -190,9 +159,7 @@ def agent_node(state: AgentState) -> AgentState:
     trace_entry = {
         "step": "agent_reasoning",
         "content": response.content,
-        "tool_calls": [tc["function"] for tc in
-                       response.additional_kwargs.get("tool_calls", [])] if response.additional_kwargs.get(
-            "tool_calls") else [],
+        "tool_calls": [tc["function"] for tc in response.additional_kwargs.get("tool_calls", [])] if response.additional_kwargs.get("tool_calls") else [],
         "latency_seconds": latency,
         "token_usage": response.response_metadata.get("token_usage", {})
     }
@@ -223,7 +190,6 @@ def tool_node(state: AgentState) -> AgentState:
             try:
                 result = tool_fn.invoke(tool_args)
                 latency = round(time.time() - start, 3)
-                # Retry if order not found and it's the lookup tool
                 if tool_name == "tool_get_customer_order" and not result.get("found", True):
                     if attempt < MAX_RETRIES:
                         print(f"DEBUG retry {attempt + 1} for {tool_name}")
@@ -283,7 +249,6 @@ agent_graph = build_graph()
 # ---------- Run agent ----------
 
 def run_agent(customer_id: str, order_id: str, user_message: str, history: list = []) -> dict:
-    # Convert history dicts to LangChain message objects safely
     converted_history = []
     for msg in history:
         if isinstance(msg, dict):
