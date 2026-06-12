@@ -159,7 +159,7 @@ def get_tickets():
 @app.delete("/clear-logs")
 def clear_logs():
     import sqlite3
-    conn = sqlite3.connect("refund_easy.db")
+    conn = sqlite3.connect("refund_agent.db")
     conn.execute("DELETE FROM refund_requests")
     conn.execute("DELETE FROM support_tickets")
     conn.commit()
