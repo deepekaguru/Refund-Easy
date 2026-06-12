@@ -379,7 +379,13 @@ with left:
                         unsafe_allow_html=True
                     )
 # View Refund Logs
-with st.expander("View Refund Logs"):
+if "show_logs" not in st.session_state:
+    st.session_state.show_logs = False
+
+if st.button("View Refund Logs", key="view_logs_btn"):
+    st.session_state.show_logs = not st.session_state.show_logs
+
+if st.session_state.show_logs:
     try:
         res = requests.get(f"{API_URL}/logs")
         if res.status_code == 200:
