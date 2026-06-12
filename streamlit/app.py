@@ -4,7 +4,7 @@ import json
 import requests
 from datetime import datetime
 
-API_URL = os.getenv("BACKEND_API_URL", "http://localhost:8000")
+API_URL = "https://refund-easy-api.onrender.com"
 
 st.set_page_config(page_title="Refund Easy", layout="wide", initial_sidebar_state="collapsed")
 
