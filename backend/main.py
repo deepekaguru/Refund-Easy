@@ -24,8 +24,6 @@ class ChatRequest(BaseModel):
     message: str
     history: list = []
 
-from typing import Optional
-
 class ChatResponse(BaseModel):
     response: str
     trace: list
