@@ -117,7 +117,6 @@ def chat(request: ChatRequest):
             )
 
     policy_reason = extract_policy_reason(trace)
-    print(f"DEBUG reason: {policy_reason}")
     db.save_refund_request(
         customer_id=request.customer_id,
         order_id=request.order_id,
