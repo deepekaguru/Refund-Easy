@@ -19,6 +19,9 @@ def load_customers():
 
 st.markdown("""
 <style>
+[data-testid="stExpander"] summary p {
+    padding-left: 8px !important;
+}
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
 * { font-family: 'Inter', sans-serif !important; }
