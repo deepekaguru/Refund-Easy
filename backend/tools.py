@@ -12,6 +12,23 @@ with open(DATA_PATH, "r") as f:
 
 with open(POLICY_PATH, "r") as f:
     REFUND_POLICY = f.read()
+    
+def check_previous_refund_request(customer_id: str, order_id: str) -> dict:
+    """Check if a refund request was already submitted for this order."""
+    result = db_check_refund_history(customer_id, order_id)
+    if result["found"]:
+        return {
+            "already_requested": True,
+            "decision": result["decision"],
+            "reason": result.get("reason", ""),
+            "requested_on": result["created_at"],
+            "ticket_id": result.get("ticket_id"),
+            "message": f"A refund request for order {order_id} was already submitted on {result['created_at']} with decision: {result['decision']}."
+        }
+    return {
+        "already_requested": False,
+        "message": "No previous refund request found for this order."
+    }
 
 
 def get_customer_order(customer_id: str, order_id: str) -> dict:
@@ -138,19 +155,3 @@ def get_refund_policy() -> str:
     return REFUND_POLICY
 
 
-def check_previous_refund_request(customer_id: str, order_id: str) -> dict:
-    """Check if a refund request was already submitted for this order."""
-    result = db_check_refund_history(customer_id, order_id)
-    if result["found"]:
-        return {
-            "already_requested": True,
-            "decision": result["decision"],
-            "reason": result.get("reason", ""),
-            "requested_on": result["created_at"],
-            "ticket_id": result.get("ticket_id"),
-            "message": f"A refund request for order {order_id} was already submitted on {result['created_at']} with decision: {result['decision']}."
-        }
-    return {
-        "already_requested": False,
-        "message": "No previous refund request found for this order."
-    }
