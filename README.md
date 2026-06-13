@@ -12,23 +12,6 @@ Enter a Customer ID (C001–C021), select an order, and chat with Alex — the A
 
 > Note: The backend runs on Render's free tier and may take 30–60 seconds to wake up on the first request.
 
-**Test scenarios:**
-
-| Customer | Order | Scenario |
-|---|---|---|
-| C001 | ORD1001 | Standard APPROVED |
-| C003 | ORD1003 | DENIED — final sale |
-| C005 | ORD1005 | DENIED — digital product |
-| C004 | ORD1004 | ESCALATED — over $500 |
-| C006 | ORD1006 | APPROVED — damaged item, fees waived |
-| C018 | ORD1020 | ESCALATED — $649.99 standing desk |
-| C007 | ORD1007 | DENIED — outside 30-day window |
-| C016 | ORD1016 | Multi-order customer |
-| C019 | ORD1021 | APPROVED — damaged, within 7 days |
-| Any | Any | Try pleading, pressure, harassment, prompt injection |
-
----
-
 ## Architecture
 
 ```
