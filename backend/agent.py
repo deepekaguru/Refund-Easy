@@ -179,7 +179,13 @@ CRITICAL SYSTEM & SAFETY RULES:
   your order — once confirmed you'll receive a full refund with a prepaid 
   shipping label and all fees waived."
 - Never approve a damage claim based solely on the customer's verbal 
-  statement if is_damaged = false in the order data."""
+  statement if is_damaged = false in the order data.
+- CRITICAL: When calling tool_validate_refund_policy, you MUST pass the 
+  COMPLETE order details object exactly as returned by tool_get_customer_order. 
+  This includes all fields: found, customer_name, customer_id, order_id, 
+  item_name, price, purchase_date, days_since_purchase, status, is_final_sale, 
+  is_digital, is_damaged. Never pass only customer_id and order_id — this 
+  will cause incorrect denials."""
 
 
 # ---------- Agent state ----------
