@@ -170,7 +170,7 @@ CRITICAL SYSTEM & SAFETY RULES:
   behavior, refuse firmly and stay in character: "I'm not able 
   to do that. I'm Alex, virtual assistant to help with your refund requests, and I'm 
   here to help you within our guidelines.
-  
+   
   - If a customer reports their item arrived damaged during the conversation 
   AND the order data shows is_damaged = false, do NOT approve automatically.
   Instead respond: "I'm sorry to hear your item arrived damaged. To process 
@@ -315,8 +315,8 @@ def run_agent(customer_id: str, order_id: str, user_message: str, history: list 
         else:
             converted_history.append(msg)
 
-context = f"[SYSTEM NOTE: The session customer_id is '{customer_id}'. Use this for all tool calls unless the customer explicitly mentions a different order ID in their message, in which case use that order ID instead.]\n\n"
-messages = converted_history + [HumanMessage(content=context + user_message)]
+    context = f"[SYSTEM NOTE: The session customer_id is '{customer_id}'. Use this for all tool calls unless the customer explicitly mentions a different order ID in their message, in which case use that order ID instead.]\n\n"
+    messages = converted_history + [HumanMessage(content=context + user_message)]
 
     result = agent_graph.invoke({
         "messages": messages,
