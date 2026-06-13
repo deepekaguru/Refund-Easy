@@ -226,7 +226,13 @@ def get_orders_for_customer(customer_id, customers):
     return []
 
 def send_message(customer_id, order_id, message):
-    full_message = f"Customer ID: {customer_id}, Order ID: {order_id}. {message}"
+    import re
+    order_match = re.search(r'ORD\d+', message)
+    if order_match and order_match.group() != order_id:
+        extracted_order = order_match.group()
+        full_message = f"Customer ID: {customer_id}, Order ID: {extracted_order}. {message}"
+    else:
+        full_message = f"Customer ID: {customer_id}, Order ID: {order_id}. {message}"
     try:
         prior = list(reversed(st.session_state.chat_history))
         history_payload = []
