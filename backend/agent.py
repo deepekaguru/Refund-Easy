@@ -239,19 +239,26 @@ def tool_node(state: AgentState) -> AgentState:
             try:
                 result = tool_fn.invoke(tool_args)
                 latency = round(time.time() - start, 3)
-                if tool_name == "tool_get_customer_order" and not result.get("found", True):
+                
+                # Check if the tool explicitly returned a "not found" signature
+                if isinstance(result, dict) and not result.get("found", True):
                     if attempt < MAX_RETRIES:
-                        print(f"DEBUG retry {attempt + 1} for {tool_name}")
+                        print(f"DEBUG retry {attempt + 1} for {tool_name} (Not Found)")
                         time.sleep(0.5)
                         continue
+                
                 status = "success"
                 break
+                
             except Exception as e:
                 latency = round(time.time() - start, 3)
-                result = {"error": str(e)}
+                result = {"error": str(e), "found": False} # Force key inclusion on crash
+                
+                # FIX: If the tool throws a code exception on a missing ID, allow it to retry!
                 if attempt < MAX_RETRIES:
-                    print(f"DEBUG retry {attempt + 1} after error: {e}")
+                    print(f"DEBUG retry {attempt + 1} after tool crash error: {e}")
                     time.sleep(0.5)
+                    continue
                 else:
                     status = "error"
 
