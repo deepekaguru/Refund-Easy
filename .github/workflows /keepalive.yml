@@ -1,0 +1,36 @@
+name: Keep Streamlit App Awake
+
+on:
+  schedule:
+    - cron: "*/20 * * * *"  # every 20 minutes
+  workflow_dispatch:  # allows manual trigger from GitHub UI
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Playwright
+        run: |
+          pip install playwright
+          playwright install --with-deps chromium
+
+      - name: Visit Streamlit app
+        run: |
+          python - <<'EOF'
+          from playwright.sync_api import sync_playwright
+
+          url = "https://refundeasy.streamlit.app/"
+
+          with sync_playwright() as p:
+              browser = p.chromium.launch()
+              page = browser.new_page()
+              page.goto(url, timeout=60000)
+              page.wait_for_timeout(5000)  # let it fully load
+              print(f"Visited {url} successfully")
+              browser.close()
+          EOF
